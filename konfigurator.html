@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Konfigurator PC</title>
+  <style>
+    body { font-family: Arial; max-width: 600px; margin: 50px auto; padding: 20px; }
+    label { display: block; margin-top: 15px; }
+    select, input[type="submit"], input[type="email"] {
+      width: 100%; padding: 10px; margin-top: 5px;
+    }
+    h2 { margin-top: 30px; color: green; }
+  </style>
+</head>
+<body>
+  <h1>Konfigurator Komponentów</h1>
+  <form action="https://formspree.io/f/xrblgyzj" method="POST">
+
+    <label>Procesor:
+      <select name="Procesor" required onchange="updatePrice()">
+        <option value="0">-- Wybierz --</option>
+        <option value="850">Intel Core i5-12400F - 850 zł</option>
+        <option value="700">AMD Ryzen 5 5600 - 700 zł</option>
+        <option value="1700">Intel Core i7-13700K - 1700 zł</option>
+      </select>
+    </label>
+
+    <label>Płyta główna:
+      <select name="Płyta główna" required onchange="updatePrice()">
+        <option value="0">-- Wybierz --</option>
+        <option value="600">MSI B550 Tomahawk - 600 zł</option>
+        <option value="650">ASUS TUF B660-PLUS - 650 zł</option>
+        <option value="900">Gigabyte Z790 AORUS Elite - 900 zł</option>
+      </select>
+    </label>
+
+    <label>Karta Graficzna:
+      <select name="Grafika" required onchange="updatePrice()">
+        <option value="0">-- Wybierz --</option>
+        <option value="1600">RTX 4060 - 1600 zł</option>
+        <option value="1700">RX 6700 XT - 1700 zł</option>
+        <option value="3200">RTX 4070 Ti - 3200 zł</option>
+      </select>
+    </label>
+
+    <label>Pamięć RAM:
+      <select name="RAM" required onchange="updatePrice()">
+        <option value="0">-- Wybierz --</option>
+        <option value="200">16 GB DDR4 - 200 zł</option>
+        <option value="450">32 GB DDR5 - 450 zł</option>
+      </select>
+    </label>
+
+    <label>Dysk SSD:
+      <select name="Dysk" required onchange="updatePrice()">
+        <option value="0">-- Wybierz --</option>
+        <option value="250">SSD 500 GB - 250 zł</option>
+        <option value="400">SSD 1 TB - 400 zł</option>
+      </select>
+    </label>
+
+    <label>Zasilacz (PSU):
+      <select name="Zasilacz" required onchange="updatePrice()">
+        <option value="0">-- Wybierz --</option>
+        <option value="200">SilentiumPC Vero L3 600W - 200 zł</option>
+        <option value="350">be quiet! Pure Power 750W - 350 zł</option>
+        <option value="500">Seasonic Focus 850W - 500 zł</option>
+      </select>
+    </label>
+
+    <label>Rodzaj chłodzenia:
+      <select name="Rodzaj chłodzenia" id="typChlodzenia" required onchange="pokazChlodzenie(); updatePrice();">
+        <option value="">-- Wybierz --</option>
+        <option value="powietrzne">Powietrzne</option>
+        <option value="wodne">Wodne</option>
+      </select>
+    </label>
+
+    <div id="powietrzneDiv" style="display:none;">
+      <label>Chłodzenie powietrzne:
+        <select name="Chłodzenie powietrzne" id="chlodzeniePowietrzne" onchange="updatePrice()">
+          <option value="0">-- Wybierz --</option>
+          <option value="100">SilentiumPC Fera 5 - 100 zł</option>
+          <option value="250">be quiet! Dark Rock 4 - 250 zł</option>
+          <option value="400">Noctua NH-D15 - 400 zł</option>
+        </select>
+      </label>
+    </div>
+
+    <div id="wodneDiv" style="display:none;">
+      <label>Chłodzenie wodne:
+        <select name="Chłodzenie wodne" id="chlodzenieWodne" onchange="updatePrice()">
+          <option value="0">-- Wybierz --</option>
+          <option value="450">NZXT Kraken X63 - 450 zł</option>
+          <option value="500">Arctic Liquid Freezer II 280 - 500 zł</option>
+          <option value="650">Corsair iCUE H150i - 650 zł</option>
+        </select>
+      </label>
+    </div>
+
+    <label>Podaj swój e-mail:
+      <input type="email" name="Email" required>
+    </label>
+
+    <input type="submit" value="Wyślij konfigurację">
+  </form>
+
+  <h2>Łączna cena: <span id="suma">0</span> zł</h2>
+
+  <script>
+    function pokazChlodzenie() {
+      const wybor = document.getElementById("typChlodzenia").value;
+      document.getElementById("powietrzneDiv").style.display = (wybor === "powietrzne") ? "block" : "none";
+      document.getElementById("wodneDiv").style.display = (wybor === "wodne") ? "block" : "none";
+    }
+
+    function updatePrice() {
+      let suma = 0;
+      const selects = document.querySelectorAll("form select");
+
+      selects.forEach(select => {
+        // Pomijaj chłodzenie, jeśli nie jest aktywne
+        if ((select.id === "chlodzeniePowietrzne" && document.getElementById("typChlodzenia").value !== "powietrzne") ||
+            (select.id === "chlodzenieWodne" && document.getElementById("typChlodzenia").value !== "wodne")) {
+          return;
+        }
+
+        const value = parseFloat(select.value);
+        if (!isNaN(value)) suma += value;
+      });
+
+      document.getElementById("suma").textContent = suma;
+    }
+  </script>
+</body>
+</html>
