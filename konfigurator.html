@@ -1,75 +1,147 @@
 <!DOCTYPE html>
-<html>
+<html lang="pl">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Konfigurator PC</title>
   <style>
-    body { font-family: Arial; max-width: 600px; margin: 50px auto; padding: 20px; }
-    label { display: block; margin-top: 15px; }
-    select, input[type="submit"], input[type="email"] {
-      width: 100%; padding: 10px; margin-top: 5px;
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
     }
-    h2 { margin-top: 30px; color: green; }
+    label {
+      display: block;
+      margin-top: 15px;
+    }
+    select, input[type="submit"], input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+    h2 {
+      margin-top: 30px;
+      color: green;
+    }
   </style>
 </head>
 <body>
+
   <h1>Konfigurator Komponentów</h1>
-  <form action="https://formspree.io/f/xrblgyzj" method="POST">
+
+  <form action="https://formspree.io/f/xrblgyzj" method="POST" oninput="updatePrice()">
+
+    <label>Wybierz platformę:
+      <select id="platforma" onchange="filterProcessors()">
+        <option value="">-- Wybierz --</option>
+        <option value="Intel">Intel</option>
+        <option value="AMD">AMD</option>
+      </select>
+    </label>
 
     <label>Procesor:
-      <select name="Procesor" required onchange="updatePrice()">
-        <option value="0">-- Wybierz --</option>
-        <option value="850">Intel Core i5-12400F - 850 zł</option>
-        <option value="700">AMD Ryzen 5 5600 - 700 zł</option>
-        <option value="1700">Intel Core i7-13700K - 1700 zł</option>
+      <select name="Procesor" id="procesor" required>
+        <option value="" data-price="0" data-platform="">-- Wybierz --</option>
+        
+       <!-- Intel procesory -->
+<option value="Intel Core i3‑12100F" data-platform="Intel">Intel Core i3‑12100F - 365.05 zł</option>
+<option value="Intel Core i5‑12400F" data-platform="Intel">Intel Core i5‑12400F - 489.00 zł</option>
+<option value="Intel Core i5‑12400" data-platform="Intel">Intel Core i5‑12400 - 638.91 zł</option>
+<option value="Intel Core i5‑12500" data-platform="Intel">Intel Core i5‑12500 - 829.00 zł</option>
+<option value="Intel Core i5‑12600" data-platform="Intel">Intel Core i5‑12600 - 629.00 zł</option>
+<option value="Intel Core i5‑12600K" data-platform="Intel">Intel Core i5‑12600K - 729.00 zł</option>
+<option value="Intel Core i5‑12600KF" data-platform="Intel">Intel Core i5‑12600KF - 629.00 zł</option>
+<option value="Intel Core i5‑13400F" data-platform="Intel">Intel Core i5‑13400F - 569.32 zł</option>
+<option value="Intel Core i5‑13500" data-platform="Intel">Intel Core i5‑13500 - 1106.46 zł</option>
+<option value="Intel Core i5‑14400F" data-platform="Intel">Intel Core i5‑14400F - 529.00 zł</option>
+<option value="Intel Core i5‑14400" data-platform="Intel">Intel Core i5‑14400 - 779.99 zł</option>
+<option value="Intel Core i5‑14500" data-platform="Intel">Intel Core i5‑14500 - 1071.34 zł</option>
+<option value="Intel Core i5‑14600K" data-platform="Intel">Intel Core i5‑14600K - 929.00 zł</option>
+<option value="Intel Core i5‑14600KF" data-platform="Intel">Intel Core i5‑14600KF - 954.41 zł</option>
+<option value="Intel Core i7‑12700F" data-platform="Intel">Intel Core i7‑12700F - 1089.00 zł</option>
+<option value="Intel Core i7‑12700K" data-platform="Intel">Intel Core i7‑12700K - 1109.00 zł</option>
+<option value="Intel Core i7‑12700KF" data-platform="Intel">Intel Core i7‑12700KF - 1076.67 zł</option>
+<option value="Intel Core i7‑13700K" data-platform="Intel">Intel Core i7‑13700K - 1620.00 zł</option>
+<option value="Intel Core i7‑14700" data-platform="Intel">Intel Core i7‑14700 - 1569.51 zł</option>
+<option value="Intel Core i7‑14700F" data-platform="Intel">Intel Core i7‑14700F - 1370.92 zł</option>
+<option value="Intel Core i7‑14700K" data-platform="Intel">Intel Core i7‑14700K - 1532.14 zł</option>
+<option value="Intel Core i7‑14700KF" data-platform="Intel">Intel Core i7‑14700KF - 1461.78 zł</option>
+<option value="Intel Core i9‑14900K" data-platform="Intel">Intel Core i9‑14900K - 2129.78 zł</option>
+<option value="Intel Core i9‑14900F" data-platform="Intel">Intel Core i9‑14900F - 2329.00 zł</option>
+<option value="Intel Core i9‑14900KF" data-platform="Intel">Intel Core i9‑14900KF - 1961.31 zł</option>
+<option value="Intel Core Ultra 5‑225" data-platform="Intel">Intel Core Ultra 5‑225 - 1059.00 zł</option>
+<option value="Intel Core Ultra 5‑225F" data-platform="Intel">Intel Core Ultra 5‑225F - 946.74 zł</option>
+<option value="Intel Core Ultra 5‑235" data-platform="Intel">Intel Core Ultra 5‑235 - 1254.48 zł</option>
+<option value="Intel Core Ultra 5‑245K" data-platform="Intel">Intel Core Ultra 5‑245K - 1470.58 zł</option>
+<option value="Intel Core Ultra 5‑245KF" data-platform="Intel">Intel Core Ultra 5‑245KF - 1451.18 zł</option>
+<option value="Intel Core Ultra 7‑265" data-platform="Intel">Intel Core Ultra 7‑265 - 1596.43 zł</option>
+<option value="Intel Core Ultra 7‑265K" data-platform="Intel">Intel Core Ultra 7‑265K - 1413.01 zł</option>
+<option value="Intel Core Ultra 7‑265KF" data-platform="Intel">Intel Core Ultra 7‑265KF - 1343.09 zł</option>
+
+        
+        <!-- AMD procesory -->
+        <option value="AMD Ryzen 5 5600" data-platform="AMD">AMD Ryzen 5 5600 - 459,00 zł</option>
+<option value="AMD Ryzen 5 5600X" data-platform="AMD">AMD Ryzen 5 5600X - 609,00 zł</option>
+<option value="AMD Ryzen 5 7600" data-platform="AMD">AMD Ryzen 5 7600 - 909,00 zł</option>
+<option value="AMD Ryzen 5 7600X" data-platform="AMD">AMD Ryzen 5 7600X - 1 059,00 zł</option>
+<option value="AMD Ryzen 7 5700" data-platform="AMD">AMD Ryzen 7 5700 - 529,00 zł</option>
+<option value="AMD Ryzen 7 5700G" data-platform="AMD">AMD Ryzen 7 5700G - 650,00 zł</option>
+<option value="AMD Ryzen 7 5800X" data-platform="AMD">AMD Ryzen 7 5800X - 859,00 zł</option>
+<option value="AMD Ryzen 7 5800XT" data-platform="AMD">AMD Ryzen 7 5800XT - 899,00 zł</option>
+<option value="AMD Ryzen 7 7700" data-platform="AMD">AMD Ryzen 7 7700 - 1 099,00 zł</option>
+<option value="AMD Ryzen 7 7700X" data-platform="AMD">AMD Ryzen 7 7700X - 1 239,00 zł</option>
+<option value="AMD Ryzen 9 5900X" data-platform="AMD">AMD Ryzen 9 5900X - 1 489,00 zł</option>
+<option value="AMD Ryzen 9 7900" data-platform="AMD">AMD Ryzen 9 7900 - 1 449,00 zł</option>
+<option value="AMD Ryzen 9 7900X" data-platform="AMD">AMD Ryzen 9 7900X - 1 759,00 zł</option>
       </select>
     </label>
 
     <label>Płyta główna:
-      <select name="Płyta główna" required onchange="updatePrice()">
-        <option value="0">-- Wybierz --</option>
-        <option value="600">MSI B550 Tomahawk - 600 zł</option>
-        <option value="650">ASUS TUF B660-PLUS - 650 zł</option>
-        <option value="900">Gigabyte Z790 AORUS Elite - 900 zł</option>
+      <select name="Płyta główna" required>
+        <option value="0" data-price="0">-- Wybierz --</option>
+        <option value="MSI B550 Tomahawk" data-price="600">MSI B550 Tomahawk - 600 zł</option>
+        <option value="ASUS TUF B660-PLUS" data-price="650">ASUS TUF B660-PLUS - 650 zł</option>
+        <option value="Gigabyte Z790 AORUS Elite" data-price="900">Gigabyte Z790 AORUS Elite - 900 zł</option>
       </select>
     </label>
 
     <label>Karta Graficzna:
-      <select name="Grafika" required onchange="updatePrice()">
-        <option value="0">-- Wybierz --</option>
-        <option value="1600">RTX 4060 - 1600 zł</option>
-        <option value="1700">RX 6700 XT - 1700 zł</option>
-        <option value="3200">RTX 4070 Ti - 3200 zł</option>
+      <select name="Grafika" required>
+        <option value="0" data-price="0">-- Wybierz --</option>
+        <option value="RTX 4060" data-price="1600">RTX 4060 - 1600 zł</option>
+        <option value="RX 6700 XT" data-price="1700">RX 6700 XT - 1700 zł</option>
+        <option value="RTX 4070 Ti" data-price="3200">RTX 4070 Ti - 3200 zł</option>
       </select>
     </label>
 
     <label>Pamięć RAM:
-      <select name="RAM" required onchange="updatePrice()">
-        <option value="0">-- Wybierz --</option>
-        <option value="200">16 GB DDR4 - 200 zł</option>
-        <option value="450">32 GB DDR5 - 450 zł</option>
+      <select name="RAM" required>
+        <option value="0" data-price="0">-- Wybierz --</option>
+        <option value="16 GB DDR4" data-price="200">16 GB DDR4 - 200 zł</option>
+        <option value="32 GB DDR5" data-price="450">32 GB DDR5 - 450 zł</option>
       </select>
     </label>
 
     <label>Dysk SSD:
-      <select name="Dysk" required onchange="updatePrice()">
-        <option value="0">-- Wybierz --</option>
-        <option value="250">SSD 500 GB - 250 zł</option>
-        <option value="400">SSD 1 TB - 400 zł</option>
+      <select name="Dysk" required>
+        <option value="0" data-price="0">-- Wybierz --</option>
+        <option value="SSD 500 GB" data-price="250">SSD 500 GB - 250 zł</option>
+        <option value="SSD 1 TB" data-price="400">SSD 1 TB - 400 zł</option>
       </select>
     </label>
 
     <label>Zasilacz (PSU):
-      <select name="Zasilacz" required onchange="updatePrice()">
-        <option value="0">-- Wybierz --</option>
-        <option value="200">SilentiumPC Vero L3 600W - 200 zł</option>
-        <option value="350">be quiet! Pure Power 750W - 350 zł</option>
-        <option value="500">Seasonic Focus 850W - 500 zł</option>
+      <select name="Zasilacz" required>
+        <option value="0" data-price="0">-- Wybierz --</option>
+        <option value="SilentiumPC Vero L3 600W" data-price="200">SilentiumPC Vero L3 600W - 200 zł</option>
+        <option value="be quiet! Pure Power 750W" data-price="350">be quiet! Pure Power 750W - 350 zł</option>
+        <option value="Seasonic Focus 850W" data-price="500">Seasonic Focus 850W - 500 zł</option>
       </select>
     </label>
 
     <label>Rodzaj chłodzenia:
-      <select name="Rodzaj chłodzenia" id="typChlodzenia" required onchange="pokazChlodzenie(); updatePrice();">
+      <select id="typChlodzenia" name="Rodzaj chłodzenia" required onchange="toggleCoolingOptions()">
         <option value="">-- Wybierz --</option>
         <option value="powietrzne">Powietrzne</option>
         <option value="wodne">Wodne</option>
@@ -78,59 +150,154 @@
 
     <div id="powietrzneDiv" style="display:none;">
       <label>Chłodzenie powietrzne:
-        <select name="Chłodzenie powietrzne" id="chlodzeniePowietrzne" onchange="updatePrice()">
-          <option value="0">-- Wybierz --</option>
-          <option value="100">SilentiumPC Fera 5 - 100 zł</option>
-          <option value="250">be quiet! Dark Rock 4 - 250 zł</option>
-          <option value="400">Noctua NH-D15 - 400 zł</option>
+        <select name="Chłodzenie powietrzne" id="chlodzeniePowietrzne">
+          <option value="0" data-price="0">-- Wybierz --</option>
+          <option value="SilentiumPC Fera 5" data-price="100">SilentiumPC Fera 5 - 100 zł</option>
+          <option value="be quiet! Dark Rock 4" data-price="250">be quiet! Dark Rock 4 - 250 zł</option>
+          <option value="Noctua NH-D15" data-price="400">Noctua NH-D15 - 400 zł</option>
         </select>
       </label>
     </div>
 
     <div id="wodneDiv" style="display:none;">
       <label>Chłodzenie wodne:
-        <select name="Chłodzenie wodne" id="chlodzenieWodne" onchange="updatePrice()">
-          <option value="0">-- Wybierz --</option>
-          <option value="450">NZXT Kraken X63 - 450 zł</option>
-          <option value="500">Arctic Liquid Freezer II 280 - 500 zł</option>
-          <option value="650">Corsair iCUE H150i - 650 zł</option>
+        <select name="Chłodzenie wodne" id="chlodzenieWodne">
+          <option value="0" data-price="0">-- Wybierz --</option>
+          <option value="NZXT Kraken X63" data-price="450">NZXT Kraken X63 - 450 zł</option>
+          <option value="Arctic Liquid Freezer II 280" data-price="500">Arctic Liquid Freezer II 280 - 500 zł</option>
+          <option value="Corsair iCUE H150i" data-price="650">Corsair iCUE H150i - 650 zł</option>
         </select>
       </label>
     </div>
 
-    <label>Podaj swój e-mail:
-      <input type="email" name="Email" required>
+    <label>Obudowa:
+      <select name="Obudowa">
+        <option value="0" data-price="0">-- Wybierz --</option>
+        <option value="SilentiumPC Regnum RG6V" data-price="200">SilentiumPC Regnum RG6V - 200 zł</option>
+        <option value="Fractal Design Meshify C" data-price="300">Fractal Design Meshify C - 300 zł</option>
+        <option value="be quiet! Pure Base 500DX" data-price="450">be quiet! Pure Base 500DX - 450 zł</option>
+      </select>
     </label>
 
-    <input type="submit" value="Wyślij konfigurację">
+    <label>Podaj swój e-mail:
+      <input type="email" name="Email" required />
+    </label>
+
+    <label>
+      <input type="checkbox" id="chkSystem" name="wersjaZSystemem" value="Tak" onchange="toggleSystemSelect()" />
+      Chcę wersję z zainstalowanym systemem
+    </label>
+
+    <div id="systemSelectDiv" style="display:none; margin-top:10px;">
+      <label>Wybierz system operacyjny:
+        <select name="systemOperacyjny" id="systemOperacyjny">
+          <option value="" data-price="0">-- Wybierz system --</option>
+          <option value="Windows 11 Home a kluzem akt" data-price="500">Windows 11 Home (z kluczem aktywacyjnym) - 500 zł</option>
+          <option value="Windows 11 Pro z kluczem akt" data-price="700">Windows 11 Pro (z kluczem aktywacyjnym) - 700 zł</option>
+          <option value="Windows 11 Home" data-price="500">Windows 11 Home (Bez klucza aktywacyjnego!!) - 200 zł</option>
+          <option value="Windows 11 Pro" data-price="700">Windows 11 Pro (Bez klucza aktywacyjnego!!) - 250 zł</option>
+        </select>
+      </label>
+    </div>
+
+    <label>
+      <input type="checkbox" name="obowiazekZaplaty" required />
+      Zamawiam z obowiązkiem zapłaty
+    </label>
+
+    <input type="submit" value="Wyślij konfigurację" />
+
+    <h2>Łączna cena: <span id="suma">0</span> zł</h2>
+
   </form>
-
-  <h2>Łączna cena: <span id="suma">0</span> zł</h2>
-
   <script>
-    function pokazChlodzenie() {
-      const wybor = document.getElementById("typChlodzenia").value;
-      document.getElementById("powietrzneDiv").style.display = (wybor === "powietrzne") ? "block" : "none";
-      document.getElementById("wodneDiv").style.display = (wybor === "wodne") ? "block" : "none";
+    function filterProcessors() {
+      const platform = document.getElementById("platforma").value;
+      const options = document.getElementById("procesor").options;
+
+      for (let i = 0; i < options.length; i++) {
+        const option = options[i];
+        const optionPlatform = option.getAttribute("data-platform");
+        if (platform === "" || optionPlatform === "" || optionPlatform === platform) {
+          option.style.display = "block";
+        } else {
+          option.style.display = "none";
+        }
+      }
+      // Reset wyboru procesora po filtracji
+      document.getElementById("procesor").value = "";
+      updatePrice();
+    }
+
+    function toggleCoolingOptions() {
+      const type = document.getElementById("typChlodzenia").value;
+      document.getElementById("powietrzneDiv").style.display = type === "powietrzne" ? "block" : "none";
+      document.getElementById("wodneDiv").style.display = type === "wodne" ? "block" : "none";
+
+      // Resetuj wybory chłodzenia
+      if (type === "powietrzne") {
+        document.getElementById("chlodzeniePowietrzne").value = "0";
+      } else if (type === "wodne") {
+        document.getElementById("chlodzenieWodne").value = "0";
+      }
+
+      updatePrice();
+    }
+
+    function toggleSystemSelect() {
+      const checkbox = document.getElementById("chkSystem");
+      const div = document.getElementById("systemSelectDiv");
+      if (checkbox.checked) {
+        div.style.display = "block";
+      } else {
+        div.style.display = "none";
+        document.getElementById("systemOperacyjny").value = "";
+      }
+      updatePrice();
     }
 
     function updatePrice() {
-      let suma = 0;
-      const selects = document.querySelectorAll("form select");
+      let total = 0;
+
+      const form = document.querySelector("form");
+      const selects = form.querySelectorAll("select");
 
       selects.forEach(select => {
-        // Pomijaj chłodzenie, jeśli nie jest aktywne
-        if ((select.id === "chlodzeniePowietrzne" && document.getElementById("typChlodzenia").value !== "powietrzne") ||
-            (select.id === "chlodzenieWodne" && document.getElementById("typChlodzenia").value !== "wodne")) {
-          return;
-        }
+        // Uwzględniaj tylko widoczne selecty i wybrane opcje
+        if (select.offsetParent === null) return; // pomiń niewidoczne selecty
 
-        const value = parseFloat(select.value);
-        if (!isNaN(value)) suma += value;
+        const selectedOption = select.selectedOptions[0];
+        if (!selectedOption) return;
+
+        const price = parseFloat(selectedOption.getAttribute("data-price"));
+        if (!isNaN(price)) {
+          total += price;
+        }
       });
 
-      document.getElementById("suma").textContent = suma;
+      // Jeśli checkbox systemu nie jest zaznaczony, odejmij cenę systemu
+      const chkSystem = document.getElementById("chkSystem");
+      if (!chkSystem.checked) {
+        const sysSelect = document.getElementById("systemOperacyjny");
+        const sysOption = sysSelect.selectedOptions[0];
+        if (sysOption) {
+          const sysPrice = parseFloat(sysOption.getAttribute("data-price")) || 0;
+          total -= sysPrice;
+        }
+      }
+
+      document.getElementById("suma").textContent = total.toFixed(2);
     }
+
+    // Inicjalizacja
+    window.onload = () => {
+      filterProcessors();
+      toggleCoolingOptions();
+      toggleSystemSelect();
+      updatePrice();
+    };
   </script>
+
 </body>
 </html>
+
