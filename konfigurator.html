@@ -1,75 +1,415 @@
 <!DOCTYPE html>
-<html>
+<html lang="pl">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Konfigurator PC</title>
-  <style>
-    body { font-family: Arial; max-width: 600px; margin: 50px auto; padding: 20px; }
-    label { display: block; margin-top: 15px; }
-    select, input[type="submit"], input[type="email"] {
-      width: 100%; padding: 10px; margin-top: 5px;
+ <div id="ai-price-warning" style="background: #ffcc00; color: #333; text-align: center; padding: 8px 0; font-weight: bold; font-family: Arial, sans-serif;">
+  Ceny ustalane przez sztuczną inteligencję, mogą być zróżnicowane
+</div> 
+<style>
+ body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #1e1e1e;
+    color: #f0f0f0;
+    max-width: 700px;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #4db8ff;
+  }
+
+  label {
+    display: block;
+    margin-top: 20px;
+    font-weight: bold;
+    color: #ccc;
+  }
+
+  select,
+  input[type="submit"],
+  input[type="email"],
+  input[type="text"],
+  textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    border-radius: 8px;
+    border: 1px solid #444;
+    background-color: #2a2a2a;
+    color: #fff;
+    box-sizing: border-box;
+    font-size: 15px;
+  }
+
+  select:focus,
+  input:focus,
+  textarea:focus {
+    outline: none;
+    border-color: #4db8ff;
+    background-color: #333;
+  }
+
+  input[type="checkbox"] {
+    margin-right: 8px;
+    transform: scale(1.2);
+  }
+
+  input[type="submit"] {
+    background-color: #4db8ff;
+    border: none;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 30px;
+    transition: background-color 0.3s ease;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #3399ff;
+  }
+
+  h2 {
+    margin-top: 30px;
+    color: #00ff99;
+    text-align: center;
+  }
+
+  #customComponentDiv,
+  #systemSelectDiv,
+  #powietrzneDiv,
+  #wodneDiv {
+    background-color: #2a2a2a;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+  }
+
+  p {
+    font-size: 16px;
+    color: #ddd;
+    margin-top: 10px;
+  }
+
+  strong {
+    color: #ffcc00;
+  }
+
+
+
+
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
     }
-    h2 { margin-top: 30px; color: green; }
+    label {
+      display: block;
+      margin-top: 15px;
+    }
+    select, input[type="submit"], input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+    h2 {
+      margin-top: 30px;
+      color: green;
+    }
   </style>
 </head>
 <body>
+
   <h1>Konfigurator Komponentów</h1>
-  <form action="https://formspree.io/f/xrblgyzj" method="POST">
+
+  <form action="https://formspree.io/f/xrblgyzj" method="POST" oninput="updatePrice()">
+
+    <label>Wybierz platformę:
+      <select id="platforma" onchange="filterProcessors()">
+        <option value="">-- Wybierz --</option>
+        <option value="Intel">Intel</option>
+        <option value="AMD">AMD</option>
+      </select>
+    </label>
 
     <label>Procesor:
-      <select name="Procesor" required onchange="updatePrice()">
-        <option value="0">-- Wybierz --</option>
-        <option value="850">Intel Core i5-12400F - 850 zł</option>
-        <option value="700">AMD Ryzen 5 5600 - 700 zł</option>
-        <option value="1700">Intel Core i7-13700K - 1700 zł</option>
+      <select name="Procesor" id="procesor" required>
+        <option value="" data-price="0" data-platform="">-- Wybierz --</option>
+        
+       <!-- Intel procesory -->
+<option value="Intel Core i3‑12100F" data-platform="Intel">Intel Core i3‑12100F - 365.05 zł</option>
+<option value="Intel Core i5‑12400F" data-platform="Intel">Intel Core i5‑12400F - 489.00 zł</option>
+<option value="Intel Core i5‑12400" data-platform="Intel">Intel Core i5‑12400 - 638.91 zł</option>
+<option value="Intel Core i5‑12500" data-platform="Intel">Intel Core i5‑12500 - 829.00 zł</option>
+<option value="Intel Core i5‑12600" data-platform="Intel">Intel Core i5‑12600 - 629.00 zł</option>
+<option value="Intel Core i5‑12600K" data-platform="Intel">Intel Core i5‑12600K - 729.00 zł</option>
+<option value="Intel Core i5‑12600KF" data-platform="Intel">Intel Core i5‑12600KF - 629.00 zł</option>
+<option value="Intel Core i5‑13400F" data-platform="Intel">Intel Core i5‑13400F - 569.32 zł</option>
+<option value="Intel Core i5‑13500" data-platform="Intel">Intel Core i5‑13500 - 1106.46 zł</option>
+<option value="Intel Core i5‑14400F" data-platform="Intel">Intel Core i5‑14400F - 529.00 zł</option>
+<option value="Intel Core i5‑14400" data-platform="Intel">Intel Core i5‑14400 - 779.99 zł</option>
+<option value="Intel Core i5‑14500" data-platform="Intel">Intel Core i5‑14500 - 1071.34 zł</option>
+<option value="Intel Core i5‑14600K" data-platform="Intel">Intel Core i5‑14600K - 929.00 zł</option>
+<option value="Intel Core i5‑14600KF" data-platform="Intel">Intel Core i5‑14600KF - 954.41 zł</option>
+<option value="Intel Core i7‑12700F" data-platform="Intel">Intel Core i7‑12700F - 1089.00 zł</option>
+<option value="Intel Core i7‑12700K" data-platform="Intel">Intel Core i7‑12700K - 1109.00 zł</option>
+<option value="Intel Core i7‑12700KF" data-platform="Intel">Intel Core i7‑12700KF - 1076.67 zł</option>
+<option value="Intel Core i7‑13700K" data-platform="Intel">Intel Core i7‑13700K - 1620.00 zł</option>
+<option value="Intel Core i7‑14700" data-platform="Intel">Intel Core i7‑14700 - 1569.51 zł</option>
+<option value="Intel Core i7‑14700F" data-platform="Intel">Intel Core i7‑14700F - 1370.92 zł</option>
+<option value="Intel Core i7‑14700K" data-platform="Intel">Intel Core i7‑14700K - 1532.14 zł</option>
+<option value="Intel Core i7‑14700KF" data-platform="Intel">Intel Core i7‑14700KF - 1461.78 zł</option>
+<option value="Intel Core i9‑14900K" data-platform="Intel">Intel Core i9‑14900K - 2129.78 zł</option>
+<option value="Intel Core i9‑14900F" data-platform="Intel">Intel Core i9‑14900F - 2329.00 zł</option>
+<option value="Intel Core i9‑14900KF" data-platform="Intel">Intel Core i9‑14900KF - 1961.31 zł</option>
+<option value="Intel Core Ultra 5‑225" data-platform="Intel">Intel Core Ultra 5‑225 - 1059.00 zł</option>
+<option value="Intel Core Ultra 5‑225F" data-platform="Intel">Intel Core Ultra 5‑225F - 946.74 zł</option>
+<option value="Intel Core Ultra 5‑235" data-platform="Intel">Intel Core Ultra 5‑235 - 1254.48 zł</option>
+<option value="Intel Core Ultra 5‑245K" data-platform="Intel">Intel Core Ultra 5‑245K - 1470.58 zł</option>
+<option value="Intel Core Ultra 5‑245KF" data-platform="Intel">Intel Core Ultra 5‑245KF - 1451.18 zł</option>
+<option value="Intel Core Ultra 7‑265" data-platform="Intel">Intel Core Ultra 7‑265 - 1596.43 zł</option>
+<option value="Intel Core Ultra 7‑265K" data-platform="Intel">Intel Core Ultra 7‑265K - 1413.01 zł</option>
+<option value="Intel Core Ultra 7‑265KF" data-platform="Intel">Intel Core Ultra 7‑265KF - 1343.09 zł</option>
+
+        
+        <!-- AMD procesory -->
+        <option value="AMD Ryzen 5 5600" data-platform="AMD">AMD Ryzen 5 5600 - 459,00 zł</option>
+<option value="AMD Ryzen 5 5600X" data-platform="AMD">AMD Ryzen 5 5600X - 609,00 zł</option>
+<option value="AMD Ryzen 5 7600" data-platform="AMD">AMD Ryzen 5 7600 - 909,00 zł</option>
+<option value="AMD Ryzen 5 7600X" data-platform="AMD">AMD Ryzen 5 7600X - 1 059,00 zł</option>
+<option value="AMD Ryzen 7 5700" data-platform="AMD">AMD Ryzen 7 5700 - 529,00 zł</option>
+<option value="AMD Ryzen 7 5700G" data-platform="AMD">AMD Ryzen 7 5700G - 650,00 zł</option>
+<option value="AMD Ryzen 7 5800X" data-platform="AMD">AMD Ryzen 7 5800X - 859,00 zł</option>
+<option value="AMD Ryzen 7 5800XT" data-platform="AMD">AMD Ryzen 7 5800XT - 899,00 zł</option>
+<option value="AMD Ryzen 7 7700" data-platform="AMD">AMD Ryzen 7 7700 - 1 099,00 zł</option>
+<option value="AMD Ryzen 7 7700X" data-platform="AMD">AMD Ryzen 7 7700X - 1 239,00 zł</option>
+<option value="AMD Ryzen 9 5900X" data-platform="AMD">AMD Ryzen 9 5900X - 1 489,00 zł</option>
+<option value="AMD Ryzen 9 7900" data-platform="AMD">AMD Ryzen 9 7900 - 1 449,00 zł</option>
+<option value="AMD Ryzen 9 7900X" data-platform="AMD">AMD Ryzen 9 7900X - 1 759,00 zł</option>
       </select>
     </label>
 
     <label>Płyta główna:
-      <select name="Płyta główna" required onchange="updatePrice()">
-        <option value="0">-- Wybierz --</option>
-        <option value="600">MSI B550 Tomahawk - 600 zł</option>
-        <option value="650">ASUS TUF B660-PLUS - 650 zł</option>
-        <option value="900">Gigabyte Z790 AORUS Elite - 900 zł</option>
-      </select>
+      <select name="Płyta główna" required>
+<option value="">-- Wybierz --</option>
+        <option value="ASUS PRIME B365M-A" data-price="225">ASUS PRIME B365M-A - 225 zł</option>
+<option value="MSI Z270-A PRO" data-price="225">MSI Z270-A PRO - 225 zł</option>
+<option value="ASUS ROG STRIX Z370-E" data-price="260">ASUS ROG STRIX Z370-E - 260 zł</option>
+<option value="MSI Z390-A PRO" data-price="260">MSI Z390-A PRO - 260 zł</option>
+<option value="Gigabyte Z390 AORUS PRO" data-price="295">Gigabyte Z390 AORUS PRO - 295 zł</option>
+<option value="MSI MPG B550 GAMING EDGE WIFI" data-price="245">MSI MPG B550 GAMING EDGE WIFI - 245 zł</option>
+<option value="ASUS TUF GAMING B550-PLUS WIFI" data-price="245">ASUS TUF GAMING B550-PLUS WIFI - 245 zł</option>
+<option value="Gigabyte B550 AORUS ELITE" data-price="245">Gigabyte B550 AORUS ELITE - 245 zł</option>
+<option value="ASRock B550M Steel Legend" data-price="245">ASRock B550M Steel Legend - 245 zł</option>
+<option value="MSI MAG B550 TOMAHAWK WIFI" data-price="245">MSI MAG B550 TOMAHAWK WIFI - 245 zł</option>
+<option value="ASUS PRIME B550M-A WIFI" data-price="245">ASUS PRIME B550M-A WIFI - 245 zł</option>
+<option value="Gigabyte B550M DS3H" data-price="245">Gigabyte B550M DS3H - 245 zł</option>
+<option value="ASRock B550 Phantom Gaming 4" data-price="245">ASRock B550 Phantom Gaming 4 - 245 zł</option>
+<option value="MSI B550-A PRO" data-price="245">MSI B550-A PRO - 245 zł</option>
+<option value="ASUS ROG STRIX B550-F GAMING" data-price="245">ASUS ROG STRIX B550-F GAMING - 245 zł</option>
+<option value="ASRock Z390 Taichi" data-price="330">ASRock Z390 Taichi - 330 zł</option>
+<option value="ASUS ROG MAXIMUS XI HERO" data-price="365">ASUS ROG MAXIMUS XI HERO - 365 zł</option>
+<option value="MSI MPG Z390 GAMING EDGE AC" data-price="295">MSI MPG Z390 GAMING EDGE AC - 295 zł</option>
+<option value="Gigabyte Z370 AORUS Gaming 7" data-price="330">Gigabyte Z370 AORUS Gaming 7 - 330 zł</option>
+<option value="ASRock Z370 Extreme4" data-price="295">ASRock Z370 Extreme4 - 295 zł</option>
+<option value="ASUS ROG Strix B550-F Gaming" data-price="900">ASUS ROG Strix B550-F Gaming - 900 zł</option>
+<option value="MSI B450 Tomahawk Max" data-price="650">MSI B450 Tomahawk Max - 650 zł</option>
+<option value="Gigabyte B550 AORUS Elite" data-price="750">Gigabyte B550 AORUS Elite - 750 zł</option>
+<option value="ASRock B550 Phantom Gaming 4" data-price="700">ASRock B550 Phantom Gaming 4 - 700 zł</option>
+<option value="ASUS TUF Gaming X570-Plus (Wi-Fi)" data-price="1200">ASUS TUF Gaming X570-Plus (Wi-Fi) - 1200 zł</option>
+<option value="MSI MPG X570 Gaming Plus" data-price="1000">MSI MPG X570 Gaming Plus - 1000 zł</option>
+<option value="Gigabyte X570 AORUS Elite" data-price="1100">Gigabyte X570 AORUS Elite - 1100 zł</option>
+<option value="ASRock X570 Steel Legend" data-price="1050">ASRock X570 Steel Legend - 1050 zł</option>
+<option value="ASUS Prime B550M-A" data-price="650">ASUS Prime B550M-A - 650 zł</option>
+<option value="MSI B550-A PRO" data-price="700">MSI B550-A PRO - 700 zł</option>
+<option value="ASUS ROG Strix Z490-E Gaming" data-price="1300">ASUS ROG Strix Z490-E Gaming - 1300 zł</option>
+<option value="MSI MPG Z490 Gaming Edge WiFi" data-price="1200">MSI MPG Z490 Gaming Edge WiFi - 1200 zł</option>
+<option value="Gigabyte Z490 AORUS Ultra" data-price="1400">Gigabyte Z490 AORUS Ultra - 1400 zł</option>
+<option value="ASRock Z490 Taichi" data-price="1500">ASRock Z490 Taichi - 1500 zł</option>
+<option value="ASUS Prime Z590-A" data-price="1100">ASUS Prime Z590-A - 1100 zł</option>
+<option value="MSI MAG Z590 Tomahawk WiFi" data-price="1150">MSI MAG Z590 Tomahawk WiFi - 1150 zł</option>
+<option value="Gigabyte Z590 AORUS Elite AX" data-price="1250">Gigabyte Z590 AORUS Elite AX - 1250 zł</option>
+<option value="ASRock Z590 Steel Legend" data-price="1050">ASRock Z590 Steel Legend - 1050 zł</option>
+<option value="ASUS ROG Strix Z690-E Gaming WiFi" data-price="2200">ASUS ROG Strix Z690-E Gaming WiFi - 2200 zł</option>
+<option value="MSI MPG Z690 Carbon WiFi" data-price="2100">MSI MPG Z690 Carbon WiFi - 2100 zł</option>
+<option value="Gigabyte Z690 AORUS Master" data-price="2300">Gigabyte Z690 AORUS Master - 2300 zł</option>
+<option value="ASRock Z690 Taichi" data-price="2200">ASRock Z690 Taichi - 2200 zł</option>
+<option value="ASUS Prime Z690-P D4" data-price="1400">ASUS Prime Z690-P D4 - 1400 zł</option>
+<option value="MSI MAG Z690 TOMAHAWK WIFI DDR4" data-price="1500">MSI MAG Z690 TOMAHAWK WIFI DDR4 - 1500 zł</option>
+<option value="Gigabyte Z690 AORUS Pro DDR4" data-price="1600">Gigabyte Z690 AORUS Pro DDR4 - 1600 zł</option>
+<option value="ASRock Z690 Steel Legend DDR4" data-price="1450">ASRock Z690 Steel Legend DDR4 - 1450 zł</option>
+<option value="ASUS ROG Crosshair X670E Hero" data-price="3200">ASUS ROG Crosshair X670E Hero - 3200 zł</option>
+<option value="MSI MEG X670E ACE" data-price="3100">MSI MEG X670E ACE - 3100 zł</option>
+<option value="Gigabyte X670E AORUS Master" data-price="3000">Gigabyte X670E AORUS Master - 3000 zł</option>
+<option value="ASRock X670E Taichi" data-price="2900">ASRock X670E Taichi - 2900 zł</option>
+<option value="ASUS TUF Gaming X670E-PLUS WiFi" data-price="1800">ASUS TUF Gaming X670E-PLUS WiFi - 1800 zł</option>
+<option value="MSI MAG X670E Tomahawk WiFi" data-price="1900">MSI MAG X670E Tomahawk WiFi - 1900 zł</option>
+<option value="Gigabyte X670 AORUS Elite AX" data-price="1700">Gigabyte X670 AORUS Elite AX - 1700 zł</option>
+<option value="ASRock X670E Steel Legend" data-price="1600">ASRock X670E Steel Legend - 1600 zł</option>
+
+
+   </select/>
     </label>
 
     <label>Karta Graficzna:
-      <select name="Grafika" required onchange="updatePrice()">
-        <option value="0">-- Wybierz --</option>
-        <option value="1600">RTX 4060 - 1600 zł</option>
-        <option value="1700">RX 6700 XT - 1700 zł</option>
-        <option value="3200">RTX 4070 Ti - 3200 zł</option>
+      <select name="Grafika" required>
+      <option value="">-- Wybierz --</option>  
+<option value="NVIDIA GeForce RTX 3060" data-price="2600">NVIDIA GeForce RTX 3060 - 2000 zł</option>
+<option value="NVIDIA GeForce RTX 3060 Ti" data-price="3200">NVIDIA GeForce RTX 3060 Ti - 2500 zł</option>
+<option value="NVIDIA GeForce RTX 3070" data-price="3900">NVIDIA GeForce RTX 3070 - 3200 zł</option>
+<option value="NVIDIA GeForce RTX 3070 Ti" data-price="4400">NVIDIA GeForce RTX 3070 Ti - 4000 zł</option>
+<option value="NVIDIA GeForce RTX 3080" data-price="5700">NVIDIA GeForce RTX 3080 - 4000 zł</option>
+<option value="NVIDIA GeForce RTX 3080 Ti" data-price="6600">NVIDIA GeForce RTX 3080 Ti - 5000 zł</option>
+<option value="NVIDIA GeForce RTX 3090" data-price="8200">NVIDIA GeForce RTX 3090 - 8200 zł</option>
+<option value="NVIDIA GeForce RTX 4070" data-price="4700">NVIDIA GeForce RTX 4070 - 4700 zł</option>
+<option value="NVIDIA GeForce RTX 4070 Ti" data-price="5400">NVIDIA GeForce RTX 4070 Ti - 5400 zł</option>
+<option value="NVIDIA GeForce RTX 4080" data-price="7700">NVIDIA GeForce RTX 4080 - 7700 zł</option>
+<option value="NVIDIA GeForce RTX 4090" data-price="10500">NVIDIA GeForce RTX 4090 - 10500 zł</option>
+<option value="NVIDIA GeForce GTX 1660 Super" data-price="1400">NVIDIA GeForce GTX 1660 Super - 1400 zł</option>
+<option value="NVIDIA GeForce GTX 1660 Ti" data-price="1300">NVIDIA GeForce GTX 1660 Ti - 1300 zł</option>
+<option value="NVIDIA GeForce RTX 3050" data-price="1900">NVIDIA GeForce RTX 3050 - 1900 zł</option>
+<option value="NVIDIA GeForce RTX 2060" data-price="1900">NVIDIA GeForce RTX 2060 - 1900 zł</option>
+<option value="NVIDIA GeForce RTX 2060 Super" data-price="2200">NVIDIA GeForce RTX 2060 Super - 2200 zł</option>
+<option value="NVIDIA GeForce RTX 2070" data-price="3000">NVIDIA GeForce RTX 2070 - 3000 zł</option>
+<option value="NVIDIA GeForce RTX 2070 Super" data-price="3400">NVIDIA GeForce RTX 2070 Super - 3400 zł</option>
+<option value="NVIDIA GeForce RTX 2080 Ti" data-price="5500">NVIDIA GeForce RTX 2080 Ti - 5500 zł</option>
+<option value="NVIDIA GeForce RTX 2080 Super" data-price="4200">NVIDIA GeForce RTX 2080 Super - 4200 zł</option>
+<option value="AMD Radeon RX 6600" data-price="1900">AMD Radeon RX 6600 - 1900 zł</option>
+<option value="AMD Radeon RX 6600 XT" data-price="2300">AMD Radeon RX 6600 XT - 2300 zł</option>
+<option value="AMD Radeon RX 6700 XT" data-price="3200">AMD Radeon RX 6700 XT - 3200 zł</option>
+<option value="AMD Radeon RX 6750 XT" data-price="3500">AMD Radeon RX 6750 XT - 3500 zł</option>
+<option value="AMD Radeon RX 6800" data-price="4500">AMD Radeon RX 6800 - 4500 zł</option>
+<option value="AMD Radeon RX 6800 XT" data-price="5400">AMD Radeon RX 6800 XT - 5400 zł</option>
+<option value="AMD Radeon RX 6900 XT" data-price="6500">AMD Radeon RX 6900 XT - 6500 zł</option>
+<option value="AMD Radeon RX 7900 XT" data-price="5700">AMD Radeon RX 7900 XT - 5700 zł</option>
+<option value="AMD Radeon RX 7900 XTX" data-price="6900">AMD Radeon RX 7900 XTX - 6900 zł</option>
+<option value="AMD Radeon RX 6500 XT" data-price="1100">AMD Radeon RX 6500 XT - 1100 zł</option>
+
       </select>
     </label>
 
     <label>Pamięć RAM:
-      <select name="RAM" required onchange="updatePrice()">
-        <option value="0">-- Wybierz --</option>
-        <option value="200">16 GB DDR4 - 200 zł</option>
-        <option value="450">32 GB DDR5 - 450 zł</option>
+      <select name="RAM" required>
+        <option value="0" data-price="0">-- Wybierz --</option>
+        <option value="Corsair Vengeance LPX 16GB (2x8GB) 3200MHz" data-price="450">Corsair Vengeance LPX 16GB (2x8GB) 3200MHz - 450 zł</option>
+<option value="G.Skill Ripjaws V 32GB (2x16GB) 3200MHz" data-price="880">G.Skill Ripjaws V 32GB (2x16GB) 3200MHz - 880 zł</option>
+<option value="Crucial Ballistix 16GB (2x8GB) 3200MHz" data-price="430">Crucial Ballistix 16GB (2x8GB) 3200MHz - 430 zł</option>
+<option value="Kingston HyperX Fury 32GB (2x16GB) 3200MHz" data-price="900">Kingston HyperX Fury 32GB (2x16GB) 3200MHz - 900 zł</option>
+<option value="TeamGroup T-Force Vulcan Z 16GB (2x8GB) 3200MHz" data-price="410">TeamGroup T-Force Vulcan Z 16GB (2x8GB) 3200MHz - 410 zł</option>
+<option value="Patriot Viper 4 Blackout 32GB (2x16GB) 3200MHz" data-price="900">Patriot Viper 4 Blackout 32GB (2x16GB) 3200MHz - 900 zł</option>
+<option value="ADATA XPG Spectrix D41 16GB (2x8GB) 3200MHz" data-price="440">ADATA XPG Spectrix D41 16GB (2x8GB) 3200MHz - 440 zł</option>
+<option value="Corsair Dominator Platinum RGB 16GB (2x8GB) 3200MHz" data-price="620">Corsair Dominator Platinum RGB 16GB (2x8GB) 3200MHz - 620 zł</option>
+<option value="G.Skill Trident Z RGB 32GB (2x16GB) 3200MHz" data-price="1180">G.Skill Trident Z RGB 32GB (2x16GB) 3200MHz - 1180 zł</option>
+<option value="Crucial DDR4 32GB (2x16GB) 3200MHz" data-price="900">Crucial DDR4 32GB (2x16GB) 3200MHz - 900 zł</option>
+<option value="Corsair Vengeance LPX 32GB (2x16GB) 3200MHz" data-price="880">Corsair Vengeance LPX 32GB (2x16GB) 3200MHz - 880 zł</option>
+<option value="TeamGroup T-Force Delta RGB 16GB (2x8GB) 3200MHz" data-price="530">TeamGroup T-Force Delta RGB 16GB (2x8GB) 3200MHz - 530 zł</option>
+<option value="Kingston Fury Beast RGB 32GB (2x16GB) 3200MHz" data-price="1050">Kingston Fury Beast RGB 32GB (2x16GB) 3200MHz - 1050 zł</option>
+<option value="Patriot Viper Steel 16GB (2x8GB) 3200MHz" data-price="480">Patriot Viper Steel 16GB (2x8GB) 3200MHz - 480 zł</option>
+<option value="ADATA XPG Gammix D30 32GB (2x16GB) 3200MHz" data-price="900">ADATA XPG Gammix D30 32GB (2x16GB) 3200MHz - 900 zł</option>
+<option value="Corsair Vengeance DDR5 16GB (2x8GB) 4800MHz" data-price="900">Corsair Vengeance DDR5 16GB (2x8GB) 4800MHz - 900 zł</option>
+<option value="G.Skill Trident Z5 RGB 32GB (2x16GB) 6000MHz" data-price="2300">G.Skill Trident Z5 RGB 32GB (2x16GB) 6000MHz - 2300 zł</option>
+<option value="Kingston Fury Beast DDR5 16GB (2x8GB) 4800MHz" data-price="850">Kingston Fury Beast DDR5 16GB (2x8GB) 4800MHz - 850 zł</option>
+<option value="TeamGroup T-Force Delta RGB DDR5 32GB (2x16GB) 5600MHz" data-price="2150">TeamGroup T-Force Delta RGB DDR5 32GB (2x16GB) 5600MHz - 2150 zł</option>
+<option value="Crucial DDR5 16GB (2x8GB) 4800MHz" data-price="870">Crucial DDR5 16GB (2x8GB) 4800MHz - 870 zł</option>
+<option value="Patriot Viper DDR5 32GB (2x16GB) 5200MHz" data-price="1900">Patriot Viper DDR5 32GB (2x16GB) 5200MHz - 1900 zł</option>
+<option value="ADATA XPG Lancer DDR5 16GB (2x8GB) 5200MHz" data-price="980">ADATA XPG Lancer DDR5 16GB (2x8GB) 5200MHz - 980 zł</option>
+<option value="Corsair Dominator Platinum RGB DDR5 32GB (2x16GB) 5200MHz" data-price="2000">Corsair Dominator Platinum RGB DDR5 32GB (2x16GB) 5200MHz - 2000 zł</option>
+<option value="G.Skill Ripjaws S5 DDR5 16GB (2x8GB) 6000MHz" data-price="1150">G.Skill Ripjaws S5 DDR5 16GB (2x8GB) 6000MHz - 1150 zł</option>
+<option value="Kingston Fury Renegade DDR5 32GB (2x16GB) 6000MHz" data-price="2300">Kingston Fury Renegade DDR5 32GB (2x16GB) 6000MHz - 2300 zł</option>
+<option value="TeamGroup T-Force Vulcan DDR5 16GB (2x8GB) 4800MHz" data-price="870">TeamGroup T-Force Vulcan DDR5 16GB (2x8GB) 4800MHz - 870 zł</option>
+<option value="Crucial Ballistix DDR5 16GB (2x8GB) 5200MHz" data-price="980">Crucial Ballistix DDR5 16GB (2x8GB) 5200MHz - 980 zł</option>
+<option value="Patriot Viper Steel DDR5 32GB (2x16GB) 5600MHz" data-price="2000">Patriot Viper Steel DDR5 32GB (2x16GB) 5600MHz - 2000 zł</option>
+<option value="ADATA XPG Spectrix D50 DDR5 16GB (2x8GB) 6000MHz" data-price="1200">ADATA XPG Spectrix D50 DDR5 16GB (2x8GB) 6000MHz - 1200 zł</option>
+<option value="Corsair Vengeance DDR5 32GB (2x16GB) 4800MHz" data-price="1800">Corsair Vengeance DDR5 32GB (2x16GB) 4800MHz - 1800 zł</option>
+
       </select>
     </label>
 
     <label>Dysk SSD:
-      <select name="Dysk" required onchange="updatePrice()">
-        <option value="0">-- Wybierz --</option>
-        <option value="250">SSD 500 GB - 250 zł</option>
-        <option value="400">SSD 1 TB - 400 zł</option>
+      <select name="Dysk" required>
+        <option value="0" data-price="0">-- Wybierz --</option>
+        <option value="WD Blue 1TB SATA HDD" data-price="250">WD Blue 1TB SATA HDD - 250 zł</option>
+<option value="Seagate Barracuda 2TB SATA HDD" data-price="350">Seagate Barracuda 2TB SATA HDD - 350 zł</option>
+<option value="Toshiba P300 3TB SATA HDD" data-price="450">Toshiba P300 3TB SATA HDD - 450 zł</option>
+<option value="WD Black 4TB SATA HDD" data-price="650">WD Black 4TB SATA HDD - 650 zł</option>
+<option value="Seagate IronWolf 6TB NAS SATA HDD" data-price="900">Seagate IronWolf 6TB NAS SATA HDD - 900 zł</option>
+<option value="Samsung 870 EVO 500GB SATA SSD" data-price="400">Samsung 870 EVO 500GB SATA SSD - 400 zł</option>
+<option value="Crucial MX500 1TB SATA SSD" data-price="500">Crucial MX500 1TB SATA SSD - 500 zł</option>
+<option value="Western Digital Blue 1TB SATA SSD" data-price="480">Western Digital Blue 1TB SATA SSD - 480 zł</option>
+<option value="Kingston A400 480GB SATA SSD" data-price="220">Kingston A400 480GB SATA SSD - 220 zł</option>
+<option value="SanDisk Ultra 3D 1TB SATA SSD" data-price="520">SanDisk Ultra 3D 1TB SATA SSD - 520 zł</option>
+<option value="ADATA SU800 1TB SATA SSD" data-price="450">ADATA SU800 1TB SATA SSD - 450 zł</option>
+<option value="Samsung 860 QVO 2TB SATA SSD" data-price="750">Samsung 860 QVO 2TB SATA SSD - 750 zł</option>
+<option value="Crucial BX500 480GB SATA SSD" data-price="240">Crucial BX500 480GB SATA SSD - 240 zł</option>
+<option value="Kingston KC600 1TB SATA SSD" data-price="500">Kingston KC600 1TB SATA SSD - 500 zł</option>
+<option value="TeamGroup GX2 1TB SATA SSD" data-price="400">TeamGroup GX2 1TB SATA SSD - 400 zł</option>
+<option value="Samsung 980 Pro 500GB NVMe M.2" data-price="950">Samsung 980 Pro 500GB NVMe M.2 - 950 zł</option>
+<option value="WD Black SN850 1TB NVMe M.2" data-price="1500">WD Black SN850 1TB NVMe M.2 - 1500 zł</option>
+<option value="Crucial P5 Plus 1TB NVMe M.2" data-price="1400">Crucial P5 Plus 1TB NVMe M.2 - 1400 zł</option>
+<option value="Kingston KC3000 2TB NVMe M.2" data-price="2500">Kingston KC3000 2TB NVMe M.2 - 2500 zł</option>
+<option value="Sabrent Rocket 1TB NVMe M.2" data-price="1400">Sabrent Rocket 1TB NVMe M.2 - 1400 zł</option>
+<option value="ADATA XPG GAMMIX S70 1TB NVMe M.2" data-price="1500">ADATA XPG GAMMIX S70 1TB NVMe M.2 - 1500 zł</option>
+<option value="Samsung 970 EVO Plus 1TB NVMe M.2" data-price="1300">Samsung 970 EVO Plus 1TB NVMe M.2 - 1300 zł</option>
+<option value="WD Blue SN570 500GB NVMe M.2" data-price="700">WD Blue SN570 500GB NVMe M.2 - 700 zł</option>
+<option value="Crucial P3 1TB NVMe M.2" data-price="1100">Crucial P3 1TB NVMe M.2 - 1100 zł</option>
+<option value="TeamGroup MP33 1TB NVMe M.2" data-price="1050">TeamGroup MP33 1TB NVMe M.2 - 1050 zł</option>
+<option value="Sabrent Rocket Q 2TB NVMe M.2" data-price="2000">Sabrent Rocket Q 2TB NVMe M.2 - 2000 zł</option>
+<option value="ADATA XPG SX8200 Pro 1TB NVMe M.2" data-price="1400">ADATA XPG SX8200 Pro 1TB NVMe M.2 - 1400 zł</option>
+<option value="Corsair MP600 Pro 1TB NVMe M.2" data-price="1600">Corsair MP600 Pro 1TB NVMe M.2 - 1600 zł</option>
+<option value="Samsung 980 1TB NVMe M.2" data-price="1200">Samsung 980 1TB NVMe M.2 - 1200 zł</option>
+<option value="WD Black SN750 1TB NVMe M.2" data-price="1400">WD Black SN750 1TB NVMe M.2 - 1400 zł</option>
+
       </select>
     </label>
 
     <label>Zasilacz (PSU):
-      <select name="Zasilacz" required onchange="updatePrice()">
-        <option value="0">-- Wybierz --</option>
-        <option value="200">SilentiumPC Vero L3 600W - 200 zł</option>
-        <option value="350">be quiet! Pure Power 750W - 350 zł</option>
-        <option value="500">Seasonic Focus 850W - 500 zł</option>
+      <select name="Zasilacz" required>
+        <option value="0" data-price="0">-- Wybierz --</option>
+        <option value="Corsair CX550M" data-price="350">Corsair CX550M - 350 zł</option>
+<option value="Seasonic Focus GX-650" data-price="550">Seasonic Focus GX-650 - 550 zł</option>
+<option value="be quiet! Pure Power 11 600W" data-price="380">be quiet! Pure Power 11 600W - 380 zł</option>
+<option value="Cooler Master MWE Gold 650W" data-price="420">Cooler Master MWE Gold 650W - 420 zł</option>
+<option value="EVGA 600 W1" data-price="300">EVGA 600 W1 - 300 zł</option>
+<option value="Corsair RM750x" data-price="670">Corsair RM750x - 670 zł</option>
+<option value="Seasonic S12III 500W" data-price="300">Seasonic S12III 500W - 300 zł</option>
+<option value="Thermaltake Toughpower GF1 650W" data-price="480">Thermaltake Toughpower GF1 650W - 480 zł</option>
+<option value="ASUS ROG Strix 750W Gold" data-price="700">ASUS ROG Strix 750W Gold - 700 zł</option>
+<option value="Cooler Master V550" data-price="360">Cooler Master V550 - 360 zł</option>
+
+<option value="Corsair TX650M" data-price="470">Corsair TX650M - 470 zł</option>
+<option value="be quiet! Straight Power 11 650W" data-price="590">be quiet! Straight Power 11 650W - 590 zł</option>
+<option value="EVGA SuperNOVA 750 G5" data-price="730">EVGA SuperNOVA 750 G5 - 730 zł</option>
+<option value="Seasonic Prime TX-850" data-price="950">Seasonic Prime TX-850 - 950 zł</option>
+<option value="Corsair SF600" data-price="550">Corsair SF600 - 550 zł</option>
+<option value="Thermaltake Smart 600W" data-price="250">Thermaltake Smart 600W - 250 zł</option>
+<option value="FSP Hydro PTM+ 650W" data-price="680">FSP Hydro PTM+ 650W - 680 zł</option>
+<option value="Cooler Master MasterWatt 750W" data-price="400">Cooler Master MasterWatt 750W - 400 zł</option>
+<option value="ASUS TUF Gaming 650W" data-price="430">ASUS TUF Gaming 650W - 430 zł</option>
+<option value="NZXT C650" data-price="480">NZXT C650 - 480 zł</option>
+
+<option value="Corsair RM850x" data-price="760">Corsair RM850x - 760 zł</option>
+<option value="Seasonic Focus PX-850" data-price="900">Seasonic Focus PX-850 - 900 zł</option>
+<option value="be quiet! Dark Power 12 750W" data-price="1050">be quiet! Dark Power 12 750W - 1050 zł</option>
+<option value="EVGA SuperNOVA 850 G5" data-price="830">EVGA SuperNOVA 850 G5 - 830 zł</option>
+<option value="Cooler Master V750" data-price="520">Cooler Master V750 - 520 zł</option>
+<option value="Thermaltake Toughpower Grand RGB 750W" data-price="670">Thermaltake Toughpower Grand RGB 750W - 670 zł</option>
+<option value="Corsair HX1000" data-price="1250">Corsair HX1000 - 1250 zł</option>
+<option value="Seasonic Prime Ultra 1000W" data-price="1450">Seasonic Prime Ultra 1000W - 1450 zł</option>
+<option value="be quiet! Straight Power 11 850W" data-price="800">be quiet! Straight Power 11 850W - 800 zł</option>
+<option value="ASUS ROG Thor 850W" data-price="1100">ASUS ROG Thor 850W - 1100 zł</option>
+
       </select>
     </label>
 
     <label>Rodzaj chłodzenia:
-      <select name="Rodzaj chłodzenia" id="typChlodzenia" required onchange="pokazChlodzenie(); updatePrice();">
+      <select id="typChlodzenia" name="Rodzaj chłodzenia" required onchange="toggleCoolingOptions()">
         <option value="">-- Wybierz --</option>
         <option value="powietrzne">Powietrzne</option>
         <option value="wodne">Wodne</option>
@@ -78,59 +418,276 @@
 
     <div id="powietrzneDiv" style="display:none;">
       <label>Chłodzenie powietrzne:
-        <select name="Chłodzenie powietrzne" id="chlodzeniePowietrzne" onchange="updatePrice()">
-          <option value="0">-- Wybierz --</option>
-          <option value="100">SilentiumPC Fera 5 - 100 zł</option>
-          <option value="250">be quiet! Dark Rock 4 - 250 zł</option>
-          <option value="400">Noctua NH-D15 - 400 zł</option>
+        <select name="Chłodzenie powietrzne" id="chlodzeniePowietrzne">
+          <option value="0" data-price="0">-- Wybierz --</option>
+         <option value="Cooler Master Hyper 212 Black Edition" data-price="190">Cooler Master Hyper 212 Black Edition - 190 zł</option>
+<option value="Noctua NH-U12S" data-price="330">Noctua NH-U12S - 330 zł</option>
+<option value="be quiet! Pure Rock 2" data-price="170">be quiet! Pure Rock 2 - 170 zł</option>
+<option value="Scythe Mugen 5 Rev.B" data-price="230">Scythe Mugen 5 Rev.B - 230 zł</option>
+<option value="Deepcool GAMMAXX 400" data-price="120">Deepcool GAMMAXX 400 - 120 zł</option>
+<option value="Noctua NH-D15" data-price="570">Noctua NH-D15 - 570 zł</option>
+<option value="be quiet! Dark Rock 4" data-price="390">be quiet! Dark Rock 4 - 390 zł</option>
+<option value="Cooler Master MasterAir MA410M" data-price="230">Cooler Master MasterAir MA410M - 230 zł</option>
+<option value="Thermalright Macho Rev.B" data-price="300">Thermalright Macho Rev.B - 300 zł</option>
+<option value="Cryorig H7" data-price="220">Cryorig H7 - 220 zł</option>
+
+<option value="Noctua NH-U14S" data-price="390">Noctua NH-U14S - 390 zł</option>
+<option value="be quiet! Shadow Rock 3" data-price="190">be quiet! Shadow Rock 3 - 190 zł</option>
+<option value="Cooler Master Hyper 212 RGB Black Edition" data-price="210">Cooler Master Hyper 212 RGB Black Edition - 210 zł</option>
+<option value="Scythe Fuma 2" data-price="270">Scythe Fuma 2 - 270 zł</option>
+<option value="Deepcool Assassin III" data-price="450">Deepcool Assassin III - 450 zł</option>
+<option value="Noctua NH-P12" data-price="170">Noctua NH-P12 - 170 zł</option>
+<option value="be quiet! Pure Rock 2 FX" data-price="180">be quiet! Pure Rock 2 FX - 180 zł</option>
+<option value="Thermalright True Spirit 120M" data-price="180">Thermalright True Spirit 120M - 180 zł</option>
+<option value="Cryorig R1 Ultimate" data-price="430">Cryorig R1 Ultimate - 430 zł</option>
+<option value="Cooler Master MasterAir MA620M" data-price="320">Cooler Master MasterAir MA620M - 320 zł</option>
+
+<option value="Noctua NH-U9S" data-price="280">Noctua NH-U9S - 280 zł</option>
+<option value="be quiet! Dark Rock Slim" data-price="320">be quiet! Dark Rock Slim - 320 zł</option>
+<option value="Scythe Big Shuriken 3" data-price="160">Scythe Big Shuriken 3 - 160 zł</option>
+<option value="Deepcool Gammaxx GT" data-price="140">Deepcool Gammaxx GT - 140 zł</option>
+<option value="Cooler Master Hyper 212 EVO" data-price="160">Cooler Master Hyper 212 EVO - 160 zł</option>
+<option value="Noctua NH-D9L" data-price="290">Noctua NH-D9L - 290 zł</option>
+<option value="be quiet! Shadow Rock TF 2" data-price="280">be quiet! Shadow Rock TF 2 - 280 zł</option>
+<option value="Thermalright ARO-M14" data-price="190">Thermalright ARO-M14 - 190 zł</option>
+<option value="Cryorig C7" data-price="150">Cryorig C7 - 150 zł</option>
+<option value="Cooler Master MasterAir MA410P" data-price="240">Cooler Master MasterAir MA410P - 240 zł</option>
+
         </select>
       </label>
     </div>
 
     <div id="wodneDiv" style="display:none;">
       <label>Chłodzenie wodne:
-        <select name="Chłodzenie wodne" id="chlodzenieWodne" onchange="updatePrice()">
-          <option value="0">-- Wybierz --</option>
-          <option value="450">NZXT Kraken X63 - 450 zł</option>
-          <option value="500">Arctic Liquid Freezer II 280 - 500 zł</option>
-          <option value="650">Corsair iCUE H150i - 650 zł</option>
+        <select name="Chłodzenie wodne" id="chlodzenieWodne">
+          <option value="0" data-price="0">-- Wybierz --</option>
+          <option value="Corsair iCUE H100i RGB Pro XT" data-price="690">Corsair iCUE H100i RGB Pro XT - 690 zł</option>
+<option value="NZXT Kraken X63" data-price="900">NZXT Kraken X63 - 900 zł</option>
+<option value="Arctic Liquid Freezer II 240" data-price="550">Arctic Liquid Freezer II 240 - 550 zł</option>
+<option value="Cooler Master MasterLiquid ML240L RGB V2" data-price="400">Cooler Master MasterLiquid ML240L RGB V2 - 400 zł</option>
+<option value="Corsair Hydro Series H115i RGB Platinum" data-price="880">Corsair Hydro Series H115i RGB Platinum - 880 zł</option>
+<option value="NZXT Kraken Z63" data-price="1500">NZXT Kraken Z63 - 1500 zł</option>
+<option value="EVGA CLC 240" data-price="480">EVGA CLC 240 - 480 zł</option>
+<option value="Deepcool Castle 360EX" data-price="850">Deepcool Castle 360EX - 850 zł</option>
+<option value="ASUS ROG Strix LC 240 RGB" data-price="820">ASUS ROG Strix LC 240 RGB - 820 zł</option>
+<option value="MSI MAG CoreLiquid 240R" data-price="650">MSI MAG CoreLiquid 240R - 650 zł</option>
+
+<option value="Corsair iCUE H150i Elite Capellix" data-price="1100">Corsair iCUE H150i Elite Capellix - 1100 zł</option>
+<option value="Arctic Liquid Freezer II 360" data-price="720">Arctic Liquid Freezer II 360 - 720 zł</option>
+<option value="Cooler Master MasterLiquid ML360R RGB" data-price="760">Cooler Master MasterLiquid ML360R RGB - 760 zł</option>
+<option value="NZXT Kraken X73" data-price="1200">NZXT Kraken X73 - 1200 zł</option>
+<option value="Corsair Hydro Series H90" data-price="480">Corsair Hydro Series H90 - 480 zł</option>
+<option value="Deepcool Castle 240EX" data-price="630">Deepcool Castle 240EX - 630 zł</option>
+<option value="ASUS ROG Strix LC 360 RGB" data-price="1000">ASUS ROG Strix LC 360 RGB - 1000 zł</option>
+<option value="MSI MAG CoreLiquid 360R" data-price="860">MSI MAG CoreLiquid 360R - 860 zł</option>
+<option value="Thermaltake Floe Riing 360" data-price="780">Thermaltake Floe Riing 360 - 780 zł</option>
+<option value="NZXT Kraken M22" data-price="460">NZXT Kraken M22 - 460 zł</option>
+
+<option value="Corsair iCUE H100i Elite Capellix" data-price="800">Corsair iCUE H100i Elite Capellix - 800 zł</option>
+<option value="Deepcool Castle 280EX" data-price="700">Deepcool Castle 280EX - 700 zł</option>
+<option value="Cooler Master MasterLiquid ML280 Mirror" data-price="740">Cooler Master MasterLiquid ML280 Mirror - 740 zł</option>
+<option value="Thermaltake Floe Triple Riing 360" data-price="1100">Thermaltake Floe Triple Riing 360 - 1100 zł</option>
+<option value="ASUS ROG Strix LC 280 RGB" data-price="900">ASUS ROG Strix LC 280 RGB - 900 zł</option>
+<option value="MSI MAG CoreLiquid 280R" data-price="730">MSI MAG CoreLiquid 280R - 730 zł</option>
+<option value="Corsair Hydro Series H150i Pro" data-price="1050">Corsair Hydro Series H150i Pro - 1050 zł</option>
+<option value="NZXT Kraken Z53" data-price="1300">NZXT Kraken Z53 - 1300 zł</option>
+<option value="Cooler Master MasterLiquid ML240P Mirage" data-price="480">Cooler Master MasterLiquid ML240P Mirage - 480 zł</option>
+<option value="Thermaltake Water 3.0 RGB" data-price="520">Thermaltake Water 3.0 RGB - 520 zł</option>
+
         </select>
       </label>
     </div>
 
-    <label>Podaj swój e-mail:
-      <input type="email" name="Email" required>
+    <label>Obudowa:
+      <select name="Obudowa">
+        <option value="0" data-price="0">-- Wybierz --</option>
+        <option value="NZXT H510" data-price="400">NZXT H510 - 400 zł</option>
+<option value="Corsair 4000D Airflow" data-price="450">Corsair 4000D Airflow - 450 zł</option>
+<option value="Fractal Design Meshify C" data-price="430">Fractal Design Meshify C - 430 zł</option>
+<option value="Phanteks Eclipse P400A" data-price="420">Phanteks Eclipse P400A - 420 zł</option>
+<option value="Lian Li PC-O11 Dynamic" data-price="650">Lian Li PC-O11 Dynamic - 650 zł</option>
+<option value="Cooler Master MasterBox NR600" data-price="370">Cooler Master MasterBox NR600 - 370 zł</option>
+<option value="be quiet! Pure Base 500DX" data-price="490">be quiet! Pure Base 500DX - 490 zł</option>
+<option value="Thermaltake H510 TG" data-price="420">Thermaltake H510 TG - 420 zł</option>
+<option value="NZXT H710" data-price="800">NZXT H710 - 800 zł</option>
+<option value="Corsair Carbide Series 275R" data-price="380">Corsair Carbide Series 275R - 380 zł</option>
+
+<option value="Phanteks P300A" data-price="320">Phanteks P300A - 320 zł</option>
+<option value="Cooler Master MasterCase H500" data-price="520">Cooler Master MasterCase H500 - 520 zł</option>
+<option value="Fractal Design Define 7" data-price="850">Fractal Design Define 7 - 850 zł</option>
+<option value="Lian Li PC-011 Dynamic EVO" data-price="900">Lian Li PC-011 Dynamic EVO - 900 zł</option>
+<option value="be quiet! Dark Base Pro 900" data-price="1300">be quiet! Dark Base Pro 900 - 1300 zł</option>
+<option value="Corsair iCUE 4000X RGB" data-price="570">Corsair iCUE 4000X RGB - 570 zł</option>
+<option value="Thermaltake View 71" data-price="900">Thermaltake View 71 - 900 zł</option>
+<option value="NZXT H210" data-price="390">NZXT H210 - 390 zł</option>
+<option value="Phanteks Enthoo Evolv X" data-price="1100">Phanteks Enthoo Evolv X - 1100 zł</option>
+<option value="Cooler Master MasterBox TD500 Mesh" data-price="440">Cooler Master MasterBox TD500 Mesh - 440 zł</option>
+
+<option value="Fractal Design Focus G" data-price="280">Fractal Design Focus G - 280 zł</option>
+<option value="Lian Li PC-O11 Air" data-price="720">Lian Li PC-O11 Air - 720 zł</option>
+<option value="be quiet! Silent Base 802" data-price="750">be quiet! Silent Base 802 - 750 zł</option>
+<option value="Corsair Crystal Series 680X" data-price="1150">Corsair Crystal Series 680X - 1150 zł</option>
+<option value="Thermaltake Core P5" data-price="1000">Thermaltake Core P5 - 1000 zł</option>
+<option value="NZXT H510 Elite" data-price="850">NZXT H510 Elite - 850 zł</option>
+<option value="Phanteks Eclipse P500A" data-price="680">Phanteks Eclipse P500A - 680 zł</option>
+<option value="Cooler Master MasterBox Q300L" data-price="280">Cooler Master MasterBox Q300L - 280 zł</option>
+<option value="Fractal Design Node 202" data-price="370">Fractal Design Node 202 - 370 zł</option>
+<option value="Lian Li PC-O11 Dynamic Mini" data-price="550">Lian Li PC-O11 Dynamic Mini - 550 zł</option>
+
+      </select>
     </label>
 
-    <input type="submit" value="Wyślij konfigurację">
+    <label>Podaj swój e-mail:
+      <input type="email" name="Email" required />
+    </label>
+    
+
+   <label>
+  <input type="checkbox" id="chkLista" name="BrakNaLiście" value="Tak" onchange="toggleCustomComponent()" />
+  Mojego Komponentu nie ma na liście
+</label>
+
+<div id="customComponentDiv" style="display:none; margin-top:10px;">
+  <label>Wpisz brakujące komponenty:
+    <textarea name="Własne komponenty" id="customComponentInput" rows="4" placeholder="Np. chłodzenie, dysk, RAM... " style="width:100%; padding:10px; box-sizing:border-box;"></textarea>
+  </label>
+</div>
+
+
+
+<label>
+      <input type="checkbox" id="chkSystem" name="wersjaZSystemem" value="Tak" onchange="toggleSystemSelect()" />
+      Chcę wersję z zainstalowanym systemem
+    </label>
+
+    <div id="systemSelectDiv" style="display:none; margin-top:10px;">
+      <label>Wybierz system operacyjny:
+        <select name="systemOperacyjny" id="systemOperacyjny">
+          <option value="" data-price="0">-- Wybierz system --</option>
+          <option value="Windows 11 Home a kluzem akt" data-price="500">Windows 11 Home (z kluczem aktywacyjnym) - 500 zł</option>
+          <option value="Windows 11 Pro z kluczem akt" data-price="700">Windows 11 Pro (z kluczem aktywacyjnym) - 700 zł</option>
+          <option value="Windows 11 Home" data-price="500">Windows 11 Home (Bez klucza aktywacyjnego!!) - 200 zł</option>
+          <option value="Windows 11 Pro" data-price="700">Windows 11 Pro (Bez klucza aktywacyjnego!!) - 250 zł</option>
+        </select>
+      </label>
+    </div>
+
+    <label>
+      <input type="checkbox" name="obowiazekZaplaty" required />
+      Zamawiam z obowiązkiem zapłaty
+    </label>
+    
+<p style="margin-top:10px; font-size:16px; color:#999;">
+  Gdyby coś nie było kompatybilne, skontaktujemy się z Tobą.<br>
+<p style="margin-top:10px; font-size:16px; color:#999;">
+  Gdyby twojego komponentu nie było na liście skontaktujemy się z Tobą w celu ustalenia dodatkowych opłat.<br>
+  <strong>Pamiętaj, żeby podać prawdziwy e-mail.</strong>
+</p>
+
+    <input type="submit" value="Wyślij konfigurację" />
+
+    <h2>Łączna cena: <span id="suma">0</span> zł</h2>
+
   </form>
-
-  <h2>Łączna cena: <span id="suma">0</span> zł</h2>
-
+ <!-- JAVA SCRIPTY--!>
   <script>
-    function pokazChlodzenie() {
-      const wybor = document.getElementById("typChlodzenia").value;
-      document.getElementById("powietrzneDiv").style.display = (wybor === "powietrzne") ? "block" : "none";
-      document.getElementById("wodneDiv").style.display = (wybor === "wodne") ? "block" : "none";
+    function filterProcessors() {
+      const platform = document.getElementById("platforma").value;
+      const options = document.getElementById("procesor").options;
+
+      for (let i = 0; i < options.length; i++) {
+        const option = options[i];
+        const optionPlatform = option.getAttribute("data-platform");
+        if (platform === "" || optionPlatform === "" || optionPlatform === platform) {
+          option.style.display = "block";
+        } else {
+          option.style.display = "none";
+        }
+      }
+      // Reset wyboru procesora po filtracji
+      document.getElementById("procesor").value = "";
+      updatePrice();
+    }
+
+    function toggleCoolingOptions() {
+      const type = document.getElementById("typChlodzenia").value;
+      document.getElementById("powietrzneDiv").style.display = type === "powietrzne" ? "block" : "none";
+      document.getElementById("wodneDiv").style.display = type === "wodne" ? "block" : "none";
+
+      // Resetuj wybory chłodzenia
+      if (type === "powietrzne") {
+        document.getElementById("chlodzeniePowietrzne").value = "0";
+      } else if (type === "wodne") {
+        document.getElementById("chlodzenieWodne").value = "0";
+      }
+
+      updatePrice();
+    }
+
+    function toggleSystemSelect() {
+      const checkbox = document.getElementById("chkSystem");
+      const div = document.getElementById("systemSelectDiv");
+      if (checkbox.checked) {
+        div.style.display = "block";
+      } else {
+        div.style.display = "none";
+        document.getElementById("systemOperacyjny").value = "";
+      }
+      updatePrice();
     }
 
     function updatePrice() {
-      let suma = 0;
-      const selects = document.querySelectorAll("form select");
+      let total = 0;
+
+      const form = document.querySelector("form");
+      const selects = form.querySelectorAll("select");
 
       selects.forEach(select => {
-        // Pomijaj chłodzenie, jeśli nie jest aktywne
-        if ((select.id === "chlodzeniePowietrzne" && document.getElementById("typChlodzenia").value !== "powietrzne") ||
-            (select.id === "chlodzenieWodne" && document.getElementById("typChlodzenia").value !== "wodne")) {
-          return;
-        }
+        // Uwzględniaj tylko widoczne selecty i wybrane opcje
+        if (select.offsetParent === null) return; // pomiń niewidoczne selecty
 
-        const value = parseFloat(select.value);
-        if (!isNaN(value)) suma += value;
+        const selectedOption = select.selectedOptions[0];
+        if (!selectedOption) return;
+
+        const price = parseFloat(selectedOption.getAttribute("data-price"));
+        if (!isNaN(price)) {
+          total += price;
+        }
       });
 
-      document.getElementById("suma").textContent = suma;
+      // Jeśli checkbox systemu nie jest zaznaczony, odejmij cenę systemu
+      const chkSystem = document.getElementById("chkSystem");
+      if (!chkSystem.checked) {
+        const sysSelect = document.getElementById("systemOperacyjny");
+        const sysOption = sysSelect.selectedOptions[0];
+        if (sysOption) {
+          const sysPrice = parseFloat(sysOption.getAttribute("data-price")) || 0;
+          total -= sysPrice;
+        }
+      }
+
+      document.getElementById("suma").textContent = total.toFixed(2);
     }
+
+    // Inicjalizacja
+    window.onload = () => {
+      filterProcessors();
+      toggleCoolingOptions();
+      toggleSystemSelect();
+      updatePrice();
+    };
+function toggleCustomComponent() {
+  const checkbox = document.getElementById("chkLista");
+  const div = document.getElementById("customComponentDiv");
+  if (checkbox.checked) {
+    div.style.display = "block";
+  } else {
+    div.style.display = "none";
+    document.getElementById("customComponentInput").value = "";
+  }
+}
   </script>
+
 </body>
 </html>
+
